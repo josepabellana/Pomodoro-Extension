@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Pomodoro Josep",
+    "version": "1.0",
+    "description": "",
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Pomodoro 101"
+    },
+    "permissions": [
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://*/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["popup.js"]
+        }
+    ]
+}
