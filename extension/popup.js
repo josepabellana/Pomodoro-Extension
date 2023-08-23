@@ -1,14 +1,14 @@
 // variables
 
 const startButton = document.getElementById('start');
-const resetButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
 const workTittle = document.getElementById('work');
 const breakTittle = document.getElementById('break');
 
-const workTime = 25;
-const breakTime = 5;
+let workTime = 25;
+let breakTime = 5;
 
-const seconds = "00"
+let seconds = "00"
 
 // display
 window.onload = () => {
@@ -76,5 +76,8 @@ function start() {
 resetButton.addEventListener('click', () => reset());
 // reset timer
 function reset(){
-
+    // change button
+    document.getElementById('start').style.display = "block";
+    document.getElementById('reset').style.display = "none";
+    window.onload();
 }
