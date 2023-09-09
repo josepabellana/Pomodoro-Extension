@@ -1,3 +1,3 @@
 # Pomodoro-Extension
 
-Use This extension by downloading the extension here: 
+Use This extension by downloading it here: 
