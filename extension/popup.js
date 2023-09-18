@@ -11,7 +11,7 @@ let seconds = "00"
 
 //status
 let stats;
-chrome.storage.local.get({ stats, seconds }).then((result) => {
+chrome.storage.sync.get({ stats, seconds }).then((result) => {
     console.log("Status currently is " + result.stats, result.seconds);
     stats = result.stats;
     if(stats == "running"){
@@ -36,7 +36,7 @@ function start(workMinutes = workTime-1, breakMinutes = breakTime -1, seconds = 
 
     breakCount = 0;
     const stats = "running";
-    chrome.storage.local.set({ stats }).then(() => {
+    chrome.storage.sync.set({ stats }).then(() => {
         console.log("Value is set");
     });
     // countdown
@@ -45,10 +45,10 @@ function start(workMinutes = workTime-1, breakMinutes = breakTime -1, seconds = 
         document.getElementById('minutes').innerHTML = workMinutes;
         document.getElementById('seconds').innerHTML = seconds;
 
-        chrome.storage.local.set({ workMinutes, breakMinutes }).then(() => {
+        chrome.storage.sync.set({ workMinutes, breakMinutes }).then(() => {
             console.log("Timer value set");
         });
-        chrome.storage.local.get({ stats, seconds }).then((result) => {
+        chrome.storage.sync.get({ stats, seconds }).then((result) => {
             console.log("Status currently is " + result.stats, result.seconds);
         });
 
@@ -65,7 +65,7 @@ function start(workMinutes = workTime-1, breakMinutes = breakTime -1, seconds = 
 
                     // update local storage
                     const stats = "running"
-                    chrome.storage.local.set({ stats, workMinutes, breakCount, seconds}).then(() => {
+                    chrome.storage.sync.set({ stats, workMinutes, breakCount, seconds}).then(() => {
                         console.log("Value is set");
                     });
 
@@ -79,7 +79,7 @@ function start(workMinutes = workTime-1, breakMinutes = breakTime -1, seconds = 
 
                     // update localStorage
                     const stats = "running"
-                    chrome.storage.local.set({ stats, workMinutes, breakCount, seconds }).then(() => {
+                    chrome.storage.sync.set({ stats, workMinutes, breakCount, seconds }).then(() => {
                         console.log("Value is set");
                     });
 
@@ -93,7 +93,7 @@ function start(workMinutes = workTime-1, breakMinutes = breakTime -1, seconds = 
     }
 
     // start countdown
-    setInterval(timerFunction, 1000); // 1000 = 1s
+    window.timerPomodoro = setInterval(timerFunction, 1000); // 1000 = 1s
 }
 
 
@@ -105,12 +105,12 @@ function reset(){
     document.getElementById('start').style.display = "block";
     document.getElementById('reset').style.display = "none";
     window.onload();
-
+    if(window.timerPomodoro) clearInterval(window.timerPomodoro);
     // reset localstorage values
     const stats = "reset"
     const workMinutes = 25;
     const seconds = "00";
-    chrome.storage.local.set({ stats, workMinutes, breakCount, seconds }).then(() => {
+    chrome.storage.sync.set({ stats, workMinutes, breakCount, seconds }).then(() => {
         console.log("Value is set");
     });
 }
